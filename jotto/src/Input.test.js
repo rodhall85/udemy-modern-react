@@ -5,21 +5,31 @@ import Input from './Input';
 
 const setup = (initialState={}) => {
     const store = storeFactory(initialState);
-    const wrapper = shallow(<Input store={store} />).dive().dive();
+    return shallow(<Input store={store} />).dive().dive();
 };
 
 describe("render", () => {
     describe("word has not been guessed", () => {
-        it("renders component without error", () => {
+        let wrapper;
+        
+        beforeEach(() => {
+            const initialState = { success: false };
+            wrapper = setup(initialState);
+        });
 
+        it("renders component without error", () => {
+            const component = findByTestAttr(wrapper, 'component-input');
+            expect(component.length).toBe(1);
         });
 
         it("renders input box", () => {
-
+            const component = findByTestAttr(wrapper, 'input-box');
+            expect(component.length).toBe(1);
         });
 
         it("renders the submit button", () => {
-
+            const component = findByTestAttr(wrapper, 'submit-button');
+            expect(component.length).toBe(1);
         });
     });
 
